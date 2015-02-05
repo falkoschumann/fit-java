@@ -1,14 +1,14 @@
 package fit;
 
-import junit.framework.*;
+import org.junit.Test;
 
-public class FixtureTest extends TestCase {
+import static org.junit.Assert.assertEquals;
 
-	public FixtureTest(String name) {
-		super(name);
-	}
-	
+public class FixtureTest {
+
+    @Test
 	public void testEscape() {
 		assertEquals(" &nbsp; &nbsp; ", Fixture.escape("     "));
 	}
+
 }

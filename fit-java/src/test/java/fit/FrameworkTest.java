@@ -3,17 +3,19 @@ package fit;
 // Copyright (c) 2002 Cunningham & Cunningham, Inc.
 // Released under the terms of the GNU General Public License version 2 or later.
 
-import junit.framework.*;
-import java.util.*;
-import java.text.DateFormat;
+import org.junit.Test;
+
 import java.io.*;
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
-public class FrameworkTest extends TestCase {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-    public FrameworkTest (String name) {
-        super (name);
-    }
+public class FrameworkTest {
 
+    @Test
     public void testTypeAdapter() throws Exception {
         TestFixture f = new TestFixture();
         TypeAdapter a = TypeAdapter.on(f, f.getClass().getField("sampleInt"));
@@ -54,6 +56,7 @@ public class FrameworkTest extends TestCase {
         assertEquals(12345, f.sampleShort);
     }
 
+    @Test
     public void testScientificDouble() {
         Double pi = new Double(3.141592865);
         assertEquals(ScientificDouble.valueOf("3.14"), pi);
@@ -72,6 +75,7 @@ public class FrameworkTest extends TestCase {
         assertTrue(!ScientificDouble.valueOf("6.02e23").equals(new Double(6.014e23)));
     }
 
+    @Test
     public void testEscape() {
         String junk = "!@#$%^*()_-+={}|[]\\:\";',./?`";
         assertEquals(junk, Fixture.escape(junk));
@@ -86,6 +90,7 @@ public class FrameworkTest extends TestCase {
         assertEquals("a<br />b", Fixture.escape("a\nb"));
     }
 
+    @Test
     public void testRuns() throws Exception {
         run("arithmetic", 37, 10, 0, 2);
         run("CalculatorExample", 75, 9, 0, 0);

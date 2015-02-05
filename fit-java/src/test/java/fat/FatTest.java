@@ -3,18 +3,18 @@
 
 package fat;
 
-import java.text.ParseException;
-
-import junit.framework.TestCase;
 import fit.Fixture;
 import fit.Parse;
+import org.junit.Test;
 
-public class FatTest extends TestCase {
+import java.text.ParseException;
 
-    public FatTest (String name) {
-        super (name);
-    }
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+public class FatTest {
+
+    @Test
     public void testCopy () throws ParseException {
         Parse in = new Parse("<table><tr><td>foo</td></tr></table>");
         Parse out = Table.copy(in);
@@ -23,6 +23,7 @@ public class FatTest extends TestCase {
         assertTrue("deep references shouldn't be equal", in.parts != out.parts);
     }
 
+    @Test
     public void testTable () throws ParseException {
         Parse in = new Parse("<table><tr><td>eg.Arithmetic</td></tr><tr><td>labels</td></tr></table>");
         Fixture fixture = new Table();
@@ -30,6 +31,7 @@ public class FatTest extends TestCase {
         assertTrue("non-null global table", Table.table != null);
     }
 
+    @Test
     public void testColor() throws ParseException {
         Color fixture = new fat.Color();
         Parse white = new Parse("td", "foo", null, null);

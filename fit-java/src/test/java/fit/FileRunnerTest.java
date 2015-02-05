@@ -1,11 +1,13 @@
 package fit;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
-import java.io.StringWriter;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 
-public class FileRunnerTest extends TestCase {
+import static org.junit.Assert.assertEquals;
+
+public class FileRunnerTest {
     Parse tempParse;
 
     String simpleHtml =
@@ -23,6 +25,7 @@ public class FileRunnerTest extends TestCase {
             "</td></tr></table>";
 
 
+    @Test
     public void testRunningFileWithWikiTag() {
         testHtml(simpleHtml);
         testHtml(wikiHtml);

@@ -3,10 +3,13 @@
 
 package fit;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+
 import java.util.LinkedList;
 
-public class RowFixtureTest extends TestCase {
+import static org.junit.Assert.assertEquals;
+
+public class RowFixtureTest {
 
     class BusinessObject {
         private String[] strs;
@@ -18,11 +21,7 @@ public class RowFixtureTest extends TestCase {
         public String[] getStrings() {return strs;}
     }
 
-    public RowFixtureTest (String name) {
-        super (name);
-    }
-
-
+    @Test
     public void testMatch() throws Exception {
 
         /*

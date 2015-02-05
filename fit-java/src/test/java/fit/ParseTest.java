@@ -3,36 +3,39 @@ package fit;
 //Copyright (c) 2002 Cunningham & Cunningham, Inc.
 //Released under the terms of the GNU General Public License version 2 or later.
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
-public class ParseTest extends TestCase {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-	public ParseTest(String name) {
-		super(name);
-	}
-	
-	public void testParsing () throws Exception {
+public class ParseTest {
+
+    @Test
+    public void testParsing () throws Exception {
 		Parse p = new Parse("leader<Table foo=2>body</table>trailer", new String[] {"table"});
 		assertEquals("leader", p.leader);
 		assertEquals("<Table foo=2>", p.tag);
 		assertEquals("body", p.body);
 		assertEquals("trailer", p.trailer);
 	}
-	    
+
+    @Test
 	public void testRecursing () throws Exception {
 		Parse p = new Parse("leader<table><TR><Td>body</tD></TR></table>trailer");
 		assertEquals(null, p.body);
 		assertEquals(null, p.parts.body);
 		assertEquals("body", p.parts.parts.body);
 	}
-    
+
+    @Test
 	public void testIterating () throws Exception {
 		Parse p = new Parse("leader<table><tr><td>one</td><td>two</td><td>three</td></tr></table>trailer");
 		assertEquals("one", p.parts.parts.body);
 		assertEquals("two", p.parts.parts.more.body);
 		assertEquals("three", p.parts.parts.more.more.body);
 	}
-    
+
+    @Test
 	public void testIndexing () throws Exception {
 		Parse p = new Parse("leader<table><tr><td>one</td><td>two</td><td>three</td></tr><tr><td>four</td></tr></table>trailer");
 		assertEquals("one", p.at(0,0,0).body);
@@ -49,7 +52,8 @@ public class ParseTest extends TestCase {
 		assertEquals("one", p.leaf().body);
 		assertEquals("four", p.parts.last().leaf().body);
 	}
-	
+
+    @Test
 	public void testParseException () {
 		try {
 			Parse p = new Parse("leader<table><tr><th>one</th><th>two</th><th>three</th></tr><tr><td>four</td></tr></table>trailer");
@@ -61,6 +65,7 @@ public class ParseTest extends TestCase {
 		fail("exptected exception not thrown");
 	}
 
+    @Test
 	public void testText () throws Exception {
 		String tags[] ={"td"};
 		Parse p = new Parse("<td>a&lt;b</td>", tags);
@@ -91,6 +96,7 @@ public class ParseTest extends TestCase {
 		assertEquals("a\nb", Parse.htmlToText("a< / p >   <   p  >b"));
 	}
 
+    @Test
 	public void testUnescape () {
 		assertEquals("a<b", Parse.unescape("a&lt;b"));
 		assertEquals("a>b & b>c &&", Parse.unescape("a&gt;b&nbsp;&amp;&nbsp;b>c &&"));
@@ -99,6 +105,7 @@ public class ParseTest extends TestCase {
 		assertEquals("\"\"'", Parse.unescape("“”’"));
 	}
 
+    @Test
 	public void testWhitespaceIsCondensed() {
 		assertEquals("a b", Parse.condenseWhitespace(" a  b  "));
 		assertEquals("a b", Parse.condenseWhitespace(" a  \n\tb  "));
