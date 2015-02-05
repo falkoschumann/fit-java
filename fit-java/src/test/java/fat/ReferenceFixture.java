@@ -10,8 +10,8 @@ public class ReferenceFixture extends ColumnFixture {
 	public String Note;
 
 	public String Result() {
-		String inputFileName = "../../spec/" + Location;
-		String outputFileName = "output/spec/" + Location;
+		String inputFileName = "src/main/spec/" + Location;
+		String outputFileName = "target/spec/" + Location;
 		try {
 			FileRunner runner = new FileRunner();
 			runner.args(new String[]{inputFileName, outputFileName});
