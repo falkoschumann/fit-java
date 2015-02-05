@@ -36,6 +36,7 @@
                                 <mkdir dir="target/spec/" />
                                 <property name="test_classpath" refid="maven.test.classpath"/>
                                 <java classname="fit.FileRunner" classpath="${test_classpath}" fork="true" failonerror="true">
+                                    <sysproperty key="file.encoding" value="windows-1252"/>
                                     <arg value="src/main/spec/index.html"/>
                                     <arg value="target/spec/index.html"/>
                                 </java>
